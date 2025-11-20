@@ -99,8 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Process image
     function processImage(imageSrc) {
         // Show loading animation
-        const resultSection = document.querySelector('.results-section');
-        resultSection.style.position = 'relative';
+        const imagePreview = document.getElementById('imagePreview');
+        imagePreview.style.position = 'relative';
+        
+        // Remove any existing overlay first
+        const existingOverlay = imagePreview.querySelector('.processing-overlay');
+        if (existingOverlay) existingOverlay.remove();
         
         const processingOverlay = document.createElement('div');
         processingOverlay.className = 'processing-overlay';
@@ -108,13 +112,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="loading-spinner"></div>
             <p>Analyzing image for potholes...</p>
         `;
-        resultSection.appendChild(processingOverlay);
-        // Original loading function is still called for compatibility
+        imagePreview.appendChild(processingOverlay);
         showLoading();
         
         // Function to remove loading overlay
         function removeLoadingOverlay() {
-            const overlay = document.querySelector('.processing-overlay');
+            const overlay = imagePreview.querySelector('.processing-overlay');
             if (overlay) {
                 overlay.remove();
             }
