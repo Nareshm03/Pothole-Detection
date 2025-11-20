@@ -1,0 +1,14 @@
+models/
+data/
+dataset/
+dataset_aug/
+uploads/
+reports/
+*.pt
+*.cache
+__pycache__/
+*.py
+requirements.txt
+render.yaml
+Dockerfile
+docker-compose.yml
