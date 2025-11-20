@@ -151,10 +151,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             localStorage.setItem('detectionHistory', JSON.stringify(history));
             
+            removeLoadingOverlay();
             displayResults(data.detections);
             drawDetectionBoxes(data.detections);
             actionButtons.style.display = 'flex';
-            removeLoadingOverlay();
         })
         .catch(error => {
             console.error('Detection error:', error);
