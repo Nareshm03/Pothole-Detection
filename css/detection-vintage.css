@@ -1,0 +1,147 @@
+.detection-main {
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+.detection-hero {
+    text-align: center;
+    padding: 3rem 5%;
+    margin-bottom: 2rem;
+}
+
+.detection-hero h1 {
+    margin-bottom: 1rem;
+}
+
+.detection-interface {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+}
+
+.upload-section, .results-section {
+    background: var(--off-white);
+}
+
+.upload-area {
+    padding: 3rem;
+    border: 2px solid var(--gold);
+    box-shadow: inset 0 0 0 4px var(--aged-paper), inset 0 0 0 6px var(--navy);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.upload-area:hover {
+    box-shadow: inset 0 0 0 4px var(--aged-paper), inset 0 0 0 6px var(--navy), 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.image-preview {
+    background: var(--aged-paper);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#resultCanvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.detection-results {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--off-white);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+}
+
+.accuracy-metrics {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--aged-paper);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--off-white);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Cinzel Decorative', serif;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: var(--navy);
+    margin-top: 0.5rem;
+}
+
+.action-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.metrics-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(232, 225, 213, 0.95);
+    backdrop-filter: blur(6px);
+    padding: 1rem;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    z-index: 999;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.metric {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .detection-interface {
+        grid-template-columns: 1fr;
+    }
+    
+    .metrics-panel {
+        position: static;
+        margin: 1rem 5%;
+    }
+}

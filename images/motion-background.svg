@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="roadBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4f1e8" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#f8f5f0" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#roadBg)"/>
+  
+  <!-- Scanning Grid Lines -->
+  <g opacity="0.3">
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#d4af37" stroke-width="1">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#d4af37" stroke-width="1">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="600" x2="1200" y2="600" stroke="#d4af37" stroke-width="1">
+      <animate attributeName="opacity" values="0.1;0.6;0.1" dur="3.5s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Moving Detection Boxes -->
+  <rect x="100" y="180" width="60" height="40" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 1000,0; 0,0" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0.8;0" dur="8s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="200" y="380" width="50" height="30" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 800,0; 0,0" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0.8;0" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="50" y="580" width="70" height="35" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0,0; 1100,0; 0,0" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.8;0.8;0" dur="12s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Camera Scanning Effect -->
+  <circle cx="600" cy="100" r="30" fill="none" stroke="#2c3e50" stroke-width="3" opacity="0.4">
+    <animate attributeName="r" values="30;80;30" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.1;0.4" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Floating AI Elements -->
+  <text x="150" y="160" fill="#8b4513" font-size="12" opacity="0.5" font-weight="bold">AI SCANNING...</text>
+  <text x="250" y="360" fill="#8b4513" font-size="12" opacity="0.5" font-weight="bold">POTHOLE DETECTED</text>
+  <text x="120" y="560" fill="#8b4513" font-size="12" opacity="0.5" font-weight="bold">ANALYZING...</text>
+</svg>

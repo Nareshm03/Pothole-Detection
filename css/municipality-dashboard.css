@@ -1,0 +1,50 @@
+/* Municipality Dashboard Enhancements */
+.municipality-dashboard-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.dashboard-title {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.municipality-dashboard {
+    max-width: 500px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.municipality-dashboard.visible,
+.dashboard-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alt-section {
+    flex-direction: column;
+}
+
+.alt-section .module-content {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .municipality-dashboard {
+        max-width: 100%;
+    }
+    
+    .dashboard-title {
+        font-size: 1rem;
+    }
+}

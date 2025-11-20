@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" opacity="0.1">
+  <!-- Stylized road network -->
+  <g stroke="#2c3e50" stroke-width="2" fill="none">
+    <!-- Main horizontal roads -->
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    
+    <!-- Vertical connecting roads -->
+    <line x1="150" y1="0" x2="150" y2="400"/>
+    <line x1="350" y1="0" x2="350" y2="400"/>
+    <line x1="550" y1="0" x2="550" y2="400"/>
+    
+    <!-- Diagonal connections -->
+    <line x1="0" y1="50" x2="200" y2="150"/>
+    <line x1="600" y1="50" x2="800" y2="150"/>
+    <line x1="200" y1="250" x2="400" y2="350"/>
+    
+    <!-- Intersections -->
+    <circle cx="150" cy="100" r="4" fill="#d4af37"/>
+    <circle cx="350" cy="200" r="4" fill="#d4af37"/>
+    <circle cx="550" cy="300" r="4" fill="#d4af37"/>
+  </g>
+</svg>

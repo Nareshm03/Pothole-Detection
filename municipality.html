@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Municipality Dashboard - SmoothTrack</title>
+<link rel="preload" href="images/smoothtrack-vintage-logo.png" as="image">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/unified-vintage.css">
+<link rel="stylesheet" href="css/ui-enhancements.css">
+<link rel="stylesheet" href="css/dark-mode.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/polish.css">
+<link rel="stylesheet" href="css/municipality-vintage.css">
+<link rel="stylesheet" href="css/pages-enhanced.css">
+<link rel="stylesheet" href="css/micro-interactions.css">
+</head>
+<body>
+<header class="header" id="header">
+<a href="index.html">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="header__logo">
+</a>
+<nav class="header__nav">
+<a href="index.html" class="header__link">Home</a>
+<a href="detection.html" class="header__link">Detection</a>
+<a href="municipality.html" class="header__link">Municipality</a>
+<a href="analytics.html" class="header__link">Analytics</a>
+<a href="index.html#contact" class="header__link">Contact</a>
+</nav>
+<button class="mobile-menu-toggle">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</header>
+<main class="municipality-main">
+<div class="dashboard-header parchment-bg">
+<h1>Municipality Dashboard</h1>
+<div class="dashboard-actions">
+<button class="btn gold-glow">New Report</button>
+<button class="btn gold-glow">Export Data</button>
+</div>
+</div>
+<div class="dashboard-grid">
+<div class="dashboard-card summary-card">
+<div class="card-header">
+<h3>Summary</h3>
+</div>
+<div class="card-content">
+<div class="summary-stats">
+<div class="stat-item">
+<span class="stat-value">247</span>
+<span class="stat-label">Total Reports</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">83</span>
+<span class="stat-label">Pending</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">124</span>
+<span class="stat-label">In Progress</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">40</span>
+<span class="stat-label">Completed</span>
+</div>
+</div>
+</div>
+</div>
+<div class="dashboard-card map-card">
+<div class="card-header">
+<h3>Pothole Map</h3>
+</div>
+<div class="card-content">
+<div id="potholeMap" class="map-container">
+<img src="images/map-placeholder.jpg" alt="Pothole Map" class="placeholder-map">
+</div>
+</div>
+</div>
+<div class="dashboard-card reports-card">
+<div class="card-header">
+<h3>Recent Reports</h3>
+<div class="filter-dropdown">
+<select id="reportFilter">
+<option value="all">All Reports</option>
+<option value="pending">Pending</option>
+<option value="in-progress">In Progress</option>
+<option value="completed">Completed</option>
+</select>
+</div>
+</div>
+<div class="card-content">
+<div class="reports-list" id="reportsList">
+<div class="report-item high-severity">
+<div class="report-image">
+<img src="images/pothole1.jpg" alt="Pothole">
+</div>
+<div class="report-details">
+<h4>Main Street Pothole</h4>
+<p>Reported: June 10, 2023</p>
+<p>Location: Main St & 5th Ave</p>
+<span class="severity-badge high">High Severity</span>
+</div>
+<div class="report-status pending">
+<span>Pending</span>
+</div>
+</div>
+<div class="report-item medium-severity">
+<div class="report-image">
+<img src="images/pothole2.jpg" alt="Pothole">
+</div>
+<div class="report-details">
+<h4>Highway 101 Damage</h4>
+<p>Reported: June 8, 2023</p>
+<p>Location: Highway 101, Mile 24</p>
+<span class="severity-badge medium">Medium Severity</span>
+</div>
+<div class="report-status in-progress">
+<span>In Progress</span>
+</div>
+</div>
+<div class="report-item low-severity">
+<div class="report-image">
+<img src="images/pothole3.jpg" alt="Pothole">
+</div>
+<div class="report-details">
+<h4>Oak Street Crack</h4>
+<p>Reported: June 5, 2023</p>
+<p>Location: Oak St & Elm Ave</p>
+<span class="severity-badge low">Low Severity</span>
+</div>
+<div class="report-status completed">
+<span>Completed</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dashboard-card crew-card">
+<div class="card-header">
+<h3>Maintenance Crews</h3>
+</div>
+<div class="card-content">
+<div class="crew-list">
+<div class="crew-item">
+<div class="crew-info">
+<h4>Team Alpha</h4>
+<p>4 members | 8 tasks assigned</p>
+</div>
+<div class="crew-status available">
+<span>Available</span>
+</div>
+</div>
+<div class="crew-item">
+<div class="crew-info">
+<h4>Team Beta</h4>
+<p>3 members | 5 tasks assigned</p>
+</div>
+<div class="crew-status busy">
+<span>Busy</span>
+</div>
+</div>
+<div class="crew-item">
+<div class="crew-info">
+<h4>Team Gamma</h4>
+<p>5 members | 10 tasks assigned</p>
+</div>
+<div class="crew-status busy">
+<span>Busy</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="footer__logo-wrapper">
+<div class="footer__logo-container">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="footer__logo">
+</div>
+</div>
+<nav class="footer__nav">
+<a href="index.html" class="footer__link">Home</a>
+<a href="detection.html" class="footer__link">Detection</a>
+<a href="municipality.html" class="footer__link">Municipality</a>
+<a href="analytics.html" class="footer__link">Analytics</a>
+<a href="index.html#contact" class="footer__link">Contact</a>
+</nav>
+<p class="footer__copyright">&copy; <span id="year"></span> SmoothTrack. All rights reserved.</p>
+</footer>
+<script src="js/dark-mode.js"></script>
+<script src="js/ui-components.js"></script>
+<script src="js/scroll-effects.js"></script>
+<script src="js/micro-interactions.js"></script>
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="js/municipality.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a6fa5" />
+      <stop offset="50%" stop-color="#53b88b" />
+      <stop offset="100%" stop-color="#345380" />
+    </linearGradient>
+    <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d3e50" />
+      <stop offset="100%" stop-color="#34495e" />
+    </linearGradient>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e05d44" />
+      <stop offset="100%" stop-color="#c04836" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer ring with gradient -->
+  <circle cx="60" cy="60" r="58" fill="url(#primaryGradient)" opacity="0.1" />
+  <circle cx="60" cy="60" r="55" fill="none" stroke="url(#primaryGradient)" stroke-width="3" />
+  
+  <!-- Road surface -->
+  <ellipse cx="60" cy="75" rx="45" ry="15" fill="url(#roadGradient)" />
+  
+  <!-- Road markings -->
+  <rect x="25" y="72" width="70" height="2" fill="#f5f7fa" opacity="0.8" />
+  <rect x="30" y="76" width="15" height="2" fill="#f5f7fa" opacity="0.6" />
+  <rect x="50" y="76" width="15" height="2" fill="#f5f7fa" opacity="0.6" />
+  <rect x="70" y="76" width="15" height="2" fill="#f5f7fa" opacity="0.6" />
+  
+  <!-- AI Detection Eye/Camera -->
+  <circle cx="60" cy="45" r="20" fill="url(#primaryGradient)" filter="url(#glow)" />
+  <circle cx="60" cy="45" r="15" fill="#2d3e50" />
+  <circle cx="60" cy="45" r="10" fill="url(#aiGradient)" />
+  <circle cx="60" cy="45" r="6" fill="#1a1a1a" />
+  
+  <!-- Camera lens reflection -->
+  <circle cx="56" cy="41" r="2" fill="#f5f7fa" opacity="0.8" />
+  
+  <!-- Detection indicators (potholes) -->
+  <circle cx="35" cy="70" r="3" fill="none" stroke="url(#aiGradient)" stroke-width="2" stroke-dasharray="2,2">
+    <animate attributeName="stroke-dashoffset" values="0;4" dur="1s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="80" cy="72" r="4" fill="none" stroke="url(#aiGradient)" stroke-width="2" stroke-dasharray="3,3">
+    <animate attributeName="stroke-dashoffset" values="0;6" dur="1.5s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- AI scan lines -->
+  <path d="M40 35 Q60 25 80 35" stroke="url(#aiGradient)" stroke-width="1" opacity="0.6" fill="none">
+    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="2s" repeatCount="indefinite" />
+  </path>
+  <path d="M45 30 Q60 20 75 30" stroke="url(#aiGradient)" stroke-width="1" opacity="0.4" fill="none">
+    <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2.5s" repeatCount="indefinite" />
+  </path>
+</svg>

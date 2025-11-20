@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics Dashboard - SmoothTrack</title>
+<link rel="preload" href="images/smoothtrack-vintage-logo.png" as="image">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/unified-vintage.css">
+<link rel="stylesheet" href="css/ui-enhancements.css">
+<link rel="stylesheet" href="css/dark-mode.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/polish.css">
+<link rel="stylesheet" href="css/analytics-vintage.css">
+<link rel="stylesheet" href="css/pages-enhanced.css">
+<link rel="stylesheet" href="css/micro-interactions.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="header" id="header">
+<a href="index.html">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="header__logo">
+</a>
+<nav class="header__nav">
+<a href="index.html" class="header__link">Home</a>
+<a href="detection.html" class="header__link">Detection</a>
+<a href="municipality.html" class="header__link">Municipality</a>
+<a href="analytics.html" class="header__link">Analytics</a>
+<a href="index.html#contact" class="header__link">Contact</a>
+</nav>
+<button class="mobile-menu-toggle">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</header>
+<main class="analytics-main">
+<div class="dashboard-header parchment-bg">
+<h1>Analytics Dashboard</h1>
+<div class="dashboard-actions">
+<div class="date-filter">
+<label for="dateRange" class="form-label">Time Period:</label>
+<select id="dateRange" class="form-input">
+<option value="week">Last Week</option>
+<option value="month" selected>Last Month</option>
+<option value="quarter">Last Quarter</option>
+<option value="year">Last Year</option>
+</select>
+</div>
+<button class="btn gold-glow">Export Report</button>
+</div>
+</div>
+<div class="dashboard-grid">
+<div class="dashboard-card overview-card">
+<div class="card-header">
+<h3>Overview</h3>
+</div>
+<div class="card-content">
+<div class="overview-stats">
+<div class="stat-item">
+<span class="stat-value" id="totalPotholes">0</span>
+<span class="stat-label">Total Potholes</span>
+</div>
+<div class="stat-item">
+<span class="stat-value" id="totalDetections">0</span>
+<span class="stat-label">Total Detections</span>
+</div>
+<div class="stat-item">
+<span class="stat-value" id="highSeverityCount">0</span>
+<span class="stat-label">High Severity</span>
+</div>
+<div class="stat-item">
+<span class="stat-value" id="avgConfidence">0%</span>
+<span class="stat-label">Avg Confidence</span>
+</div>
+</div>
+</div>
+</div>
+<div class="dashboard-card trend-card">
+<div class="card-header">
+<h3>Detection Trends</h3>
+</div>
+<div class="card-content">
+<canvas id="trendChart"></canvas>
+</div>
+</div>
+<div class="dashboard-card severity-card">
+<div class="card-header">
+<h3>Severity Distribution</h3>
+</div>
+<div class="card-content">
+<canvas id="severityChart"></canvas>
+</div>
+</div>
+<div class="dashboard-card location-card">
+<div class="card-header">
+<h3>Hotspot Locations</h3>
+</div>
+<div class="card-content">
+<div class="location-list" id="locationList">
+<p style="text-align: center; color: #666;">No detection data available</p>
+</div>
+</div>
+</div>
+<div class="dashboard-card performance-card">
+<div class="card-header">
+<h3>Model Performance</h3>
+</div>
+<div class="card-content">
+<div class="performance-metrics">
+<div class="metric-row">
+<div class="metric-label">Total Scans</div>
+<div class="metric-bar">
+<div class="metric-progress" id="totalScansBar" style="width: 0%"></div>
+</div>
+<div class="metric-value" id="totalScans">0</div>
+</div>
+<div class="metric-row">
+<div class="metric-label">Successful Detections</div>
+<div class="metric-bar">
+<div class="metric-progress" id="successfulBar" style="width: 0%"></div>
+</div>
+<div class="metric-value" id="successfulDetections">0</div>
+</div>
+<div class="metric-row">
+<div class="metric-label">High Severity</div>
+<div class="metric-bar">
+<div class="metric-progress" id="highSevBar" style="width: 0%"></div>
+</div>
+<div class="metric-value" id="highSevCount">0</div>
+</div>
+<div class="metric-row">
+<div class="metric-label">Medium Severity</div>
+<div class="metric-bar">
+<div class="metric-progress" id="mediumSevBar" style="width: 0%"></div>
+</div>
+<div class="metric-value" id="mediumSevCount">0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="footer">
+<div class="footer__logo-wrapper">
+<div class="footer__logo-container">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="footer__logo">
+</div>
+</div>
+<nav class="footer__nav">
+<a href="index.html" class="footer__link">Home</a>
+<a href="detection.html" class="footer__link">Detection</a>
+<a href="municipality.html" class="footer__link">Municipality</a>
+<a href="analytics.html" class="footer__link">Analytics</a>
+<a href="index.html#contact" class="footer__link">Contact</a>
+</nav>
+<p class="footer__copyright">&copy; <span id="year"></span> SmoothTrack. All rights reserved.</p>
+</footer>
+<script src="js/dark-mode.js"></script>
+<script src="js/ui-components.js"></script>
+<script src="js/scroll-effects.js"></script>
+<script src="js/micro-interactions.js"></script>
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="js/analytics.js"></script>
+</body>
+</html>

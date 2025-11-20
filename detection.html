@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detection - SmoothTrack</title>
+<link rel="preload" href="images/smoothtrack-vintage-logo.png" as="image">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/unified-vintage.css">
+<link rel="stylesheet" href="css/ui-enhancements.css">
+<link rel="stylesheet" href="css/dark-mode.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/polish.css">
+<link rel="stylesheet" href="css/detection-vintage.css">
+<link rel="stylesheet" href="css/pages-enhanced.css">
+<link rel="stylesheet" href="css/micro-interactions.css">
+<link rel="stylesheet" href="css/detection-results.css">
+</head>
+<body>
+<header class="header" id="header">
+<a href="index.html">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="header__logo">
+</a>
+<nav class="header__nav">
+<a href="index.html" class="header__link">Home</a>
+<a href="detection.html" class="header__link">Detection</a>
+<a href="municipality.html" class="header__link">Municipality</a>
+<a href="analytics.html" class="header__link">Analytics</a>
+<a href="index.html#contact" class="header__link">Contact</a>
+</nav>
+<button class="mobile-menu-toggle">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</header>
+<div id="metricsHUD" class="metrics-panel">
+<span class="metric">Latency: <span id="latencyValue">--</span> ms</span>
+<span class="metric">Detections: <span id="detectionsCount">0</span></span>
+<span class="metric">Avg Conf: <span id="avgConfValue">--</span>%</span>
+</div>
+<main class="detection-main">
+<section class="detection-hero parchment-bg">
+<h1>AI-Powered Pothole Detection</h1>
+<p>Upload Image/Video or use Camera to detect potholes</p>
+</section>
+<section class="detection-interface">
+<div class="upload-section">
+<div class="upload-area" id="uploadArea">
+<div class="upload-content">
+<div class="upload-icon">📷</div>
+<h3>Upload Image/Video</h3>
+<p>Drag and drop or click to select</p>
+<input type="file" id="imageInput" accept="image/*,video/*">
+<button class="btn gold-glow" onclick="document.getElementById('imageInput').click()">Choose File</button>
+</div>
+</div>
+</div>
+<div class="results-section">
+<div class="image-preview" id="imagePreview">
+<canvas id="resultCanvas"></canvas>
+</div>
+<div class="detection-results" id="detectionResults">
+<h3>Detection Results</h3>
+<div class="results-content">
+<p>Upload an image to see detection results</p>
+</div>
+</div>
+<div class="accuracy-metrics" id="accuracyMetrics" style="display: none;">
+<h4>Accuracy Metrics</h4>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-value" id="avgConfidence">0%</div>
+<div class="metric-label">Average Confidence</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="potholesFound">0</div>
+<div class="metric-label">Potholes Found</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="highSeverity">0</div>
+<div class="metric-label">High Severity</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="modelAccuracy">95%</div>
+<div class="metric-label">Model Precision</div>
+</div>
+</div>
+</div>
+<div class="action-buttons" id="actionButtons" style="display: none;">
+<button class="btn gold-glow" onclick="downloadResult()">Download Result</button>
+<button class="btn gold-glow" onclick="exportResults('json')">Export JSON</button>
+<button class="btn gold-glow" onclick="exportResults('excel')">Export Excel</button>
+<button class="btn gold-glow" onclick="resetDetection()">Try Another</button>
+<button class="btn gold-glow" onclick="reportToMunicipality()">Report to Municipality</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer__logo-wrapper">
+<div class="footer__logo-container">
+<img src="images/smoothtrack-vintage-logo.png" alt="SmoothTrack Logo" class="footer__logo">
+</div>
+</div>
+<nav class="footer__nav">
+<a href="index.html" class="footer__link">Home</a>
+<a href="detection.html" class="footer__link">Detection</a>
+<a href="municipality.html" class="footer__link">Municipality</a>
+<a href="analytics.html" class="footer__link">Analytics</a>
+<a href="index.html#contact" class="footer__link">Contact</a>
+</nav>
+<p class="footer__copyright">&copy; <span id="year"></span> SmoothTrack. All rights reserved.</p>
+</footer>
+<script src="js/dark-mode.js"></script>
+<script src="js/ui-components.js"></script>
+<script src="js/scroll-effects.js"></script>
+<script src="js/micro-interactions.js"></script>
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="js/detection.js"></script>
+</body>
+</html>

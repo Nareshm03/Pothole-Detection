@@ -1,0 +1,6 @@
+path: D:\pothole\dataset_aug
+train: train\images
+val: val\images
+names:
+  0: pothole
+test: test\images

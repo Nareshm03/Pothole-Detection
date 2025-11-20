@@ -1,0 +1,409 @@
+/* ========================================
+   MICRO-INTERACTIONS & POLISH
+   ======================================== */
+
+/* Magnetic Button Effect */
+.btn, .hero__cta--primary, .hero__cta--secondary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:active, .hero__cta--primary:active, .hero__cta--secondary:active {
+  transform: scale(0.95);
+}
+
+/* Card Tilt on Hover */
+.dashboard-card, .module__visual {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-5px);
+}
+
+/* Input Focus Glow */
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #f5bf2b;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2), 0 0 20px rgba(212, 175, 55, 0.3);
+  transform: scale(1.01);
+}
+
+/* Link Underline Animation */
+.header__link, .footer__link {
+  position: relative;
+}
+
+.header__link::after, .footer__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #f5bf2b, #d08f1b);
+  transition: width 0.3s ease;
+}
+
+.header__link:hover::after, .footer__link:hover::after {
+  width: 100%;
+}
+
+/* Image Zoom on Hover */
+.report-image img, .module__visual img {
+  transition: transform 0.5s ease;
+}
+
+.report-image:hover img, .module__visual:hover img {
+  transform: scale(1.1);
+}
+
+.report-image, .module__visual {
+  overflow: hidden;
+}
+
+/* Checkbox/Radio Custom Styling */
+input[type="checkbox"], input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D4AF37;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  background: linear-gradient(135deg, #f5bf2b, #d08f1b);
+  border-color: #d08f1b;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0A1128;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #0A1128;
+  border-radius: 50%;
+}
+
+/* Select Dropdown Enhancement */
+select.form-input {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4AF37' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+/* Tooltip Enhancement */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 8px 12px;
+  background: #0A1128;
+  color: #f5f5f5;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+[data-theme="dark"] [data-tooltip]::before {
+  background: #f4f1e7;
+  color: #1a1a1a;
+}
+
+[data-tooltip]::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #0A1128;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] [data-tooltip]::after {
+  border-top-color: #f4f1e7;
+}
+
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(212, 175, 55, 0.2);
+  border-top-color: #D4AF37;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Badge Notification Dot */
+.notification-dot {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background: #e74c3c;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  animation: notificationPulse 2s ease-in-out infinite;
+}
+
+[data-theme="dark"] .notification-dot {
+  border-color: #1a1a1a;
+}
+
+@keyframes notificationPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(231, 76, 60, 0);
+  }
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.1) 25%,
+    rgba(212, 175, 55, 0.2) 50%,
+    rgba(212, 175, 55, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeletonLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Ripple Effect on Click */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Smooth Page Transitions */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: pageEnter 0.5s ease-out;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f5bf2b, #d08f1b);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* Floating Action Button */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #f5bf2b, #d08f1b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.fab:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+}
+
+/* Context Menu Enhancement */
+.context-menu {
+  background: #fff;
+  border: 2px solid #D4AF37;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(10, 17, 40, 0.15);
+  padding: 0.5rem 0;
+  min-width: 180px;
+}
+
+[data-theme="dark"] .context-menu {
+  background: #24201a;
+  border-color: #e7b33b;
+}
+
+.context-menu-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.context-menu-item:hover {
+  background: rgba(212, 175, 55, 0.1);
+  padding-left: 1.5rem;
+}
+
+/* Accordion Smooth Expand */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-content.active {
+  max-height: 1000px;
+}
+
+/* Tab Indicator Slide */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f5bf2b, #d08f1b);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Drag and Drop Visual Feedback */
+.drag-over {
+  border-color: #f5bf2b !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  transform: scale(1.02);
+}
+
+/* Success/Error Toast Animations */
+.toast {
+  animation: toastSlideIn 0.3s ease-out;
+}
+
+.toast.removing {
+  animation: toastSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+/* Number Counter Animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.count-up {
+  animation: countUp 0.5s ease-out;
+}
+
+/* Glassmorphism Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}

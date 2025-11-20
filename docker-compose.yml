@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  pothole-detection:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./reports:/app/reports
+    environment:
+      - MODEL_WARMUP=0
+      - FLASK_ENV=production
+    restart: unless-stopped
+    
+  # Optional: Add nginx reverse proxy
+  # nginx:
+  #   image: nginx:alpine
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   depends_on:
+  #     - pothole-detection
+  #   restart: unless-stopped
