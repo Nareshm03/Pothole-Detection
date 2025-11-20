@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const img = new Image();
         img.onload = function() {
             const canvas = resultCanvas;
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d', { alpha: false });
             
             // Store original dimensions
             canvas.dataset.originalWidth = img.width;
@@ -95,9 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
             canvas.width = width;
             canvas.height = height;
             
+            // Disable image smoothing for crisp rendering
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            
             // Clear and draw image
             ctx.clearRect(0, 0, width, height);
             ctx.drawImage(img, 0, 0, width, height);
+            
+            // Store original image data
+            canvas.originalImageData = ctx.getImageData(0, 0, width, height);
         };
         img.src = imageSrc;
     }

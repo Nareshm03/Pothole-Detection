@@ -22,6 +22,8 @@
   width: 100%;
   height: auto;
   max-width: 100%;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 /* Detection Results Panel */
