@@ -244,6 +244,7 @@
   justify-content: center;
   z-index: 100;
   animation: fadeIn 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 [data-theme="dark"] .processing-overlay {

@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function removeLoadingOverlay() {
             const overlay = document.querySelector('.processing-overlay');
             if (overlay) {
-                overlay.classList.add('animate-fadeIn');
+                overlay.style.opacity = '0';
                 setTimeout(() => {
                     overlay.remove();
                 }, 300);
@@ -128,7 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ image: imageSrc })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('DEBUG: Received data:', data);
             console.log('DEBUG: Detections:', data.detections);
@@ -153,8 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Detection error:', error);
-            alert('Error: ' + error.message);
+            hideLoading();
             removeLoadingOverlay();
+            alert('Detection failed: ' + error.message + '\n\nMake sure backend is running at: ' + window.API_BASE_URL);
         });
     }
 
@@ -162,6 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function showLoading() {
         const resultsContent = detectionResults.querySelector('.results-content');
         resultsContent.innerHTML = '<p>Analyzing...</p>';
+    }
+    
+    // Hide loading
+    function hideLoading() {
+        const resultsContent = detectionResults.querySelector('.results-content');
+        resultsContent.innerHTML = '<p>Upload an image to see detection results</p>';
     }
 
     // Display results
