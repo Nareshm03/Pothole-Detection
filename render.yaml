@@ -3,12 +3,10 @@ services:
     name: pothole-detection-api
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    startCommand: gunicorn -w 1 -b 0.0.0.0:$PORT app:app --timeout 120
     envVars:
       - key: MODEL_WARMUP
         value: "0"
-      - key: PORT
-        value: "5000"
     disk:
       name: pothole-data
       mountPath: /app/data

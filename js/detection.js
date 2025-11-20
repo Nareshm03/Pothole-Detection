@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        fetch('/detect', {
+        fetch(`${window.API_BASE_URL}/detect`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ image: imageSrc })
@@ -369,7 +369,7 @@ function exportResults(format) {
         format: format
     };
     
-    fetch('/export', {
+    fetch(`${window.API_BASE_URL}/export`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -459,7 +459,7 @@ function generateHeatmap() {
         height: parseInt(canvas.dataset.originalHeight) || canvas.height
     };
     
-    fetch('/generate_heatmap', {
+    fetch(`${window.API_BASE_URL}/generate_heatmap`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
