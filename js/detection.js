@@ -116,10 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function removeLoadingOverlay() {
             const overlay = document.querySelector('.processing-overlay');
             if (overlay) {
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.remove();
-                }, 300);
+                overlay.remove();
             }
         }
         
