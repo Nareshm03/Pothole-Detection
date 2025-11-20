@@ -72,25 +72,31 @@ document.addEventListener('DOMContentLoaded', function() {
             const canvas = resultCanvas;
             const ctx = canvas.getContext('2d');
             
-            const maxWidth = 800;
-            const maxHeight = 600;
-            let width = img.width;
-            let height = img.height;
-            
-            if (width > maxWidth) {
-                height = (height * maxWidth) / width;
-                width = maxWidth;
-            }
-            if (height > maxHeight) {
-                width = (width * maxHeight) / height;
-                height = maxHeight;
-            }
-            
-            canvas.width = width;
-            canvas.height = height;
+            // Store original dimensions
             canvas.dataset.originalWidth = img.width;
             canvas.dataset.originalHeight = img.height;
             
+            // Calculate aspect ratio
+            const maxWidth = 800;
+            const maxHeight = 600;
+            const imgRatio = img.width / img.height;
+            const maxRatio = maxWidth / maxHeight;
+            
+            let width, height;
+            if (imgRatio > maxRatio) {
+                width = maxWidth;
+                height = maxWidth / imgRatio;
+            } else {
+                height = maxHeight;
+                width = maxHeight * imgRatio;
+            }
+            
+            // Set canvas size to match scaled dimensions
+            canvas.width = width;
+            canvas.height = height;
+            
+            // Clear and draw image
+            ctx.clearRect(0, 0, width, height);
             ctx.drawImage(img, 0, 0, width, height);
         };
         img.src = imageSrc;
@@ -256,15 +262,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const scaleX = canvas.width / canvas.dataset.originalWidth;
         const scaleY = canvas.height / canvas.dataset.originalHeight;
         
-        // Clear canvas first to redraw the image
-        const img = new Image();
-        img.onload = function() {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-            // Calculate average confidence
-            let totalConfidence = 0;
-            results.forEach(det => totalConfidence += det.confidence);
-            const avgConfidence = results.length > 0 ? totalConfidence / results.length : 0;
+        // Don't redraw image, just draw boxes on top
+        // (image is already on canvas from displayImage)
+        
+        // Calculate average confidence
+        let totalConfidence = 0;
+        results.forEach(det => totalConfidence += det.confidence);
+        const avgConfidence = results.length > 0 ? totalConfidence / results.length : 0;
             
             // Draw each detection box
             results.forEach((det, idx) => {
@@ -368,8 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 ctx.fillStyle = barGradient;
                 ctx.fillRect(barX, barY, barWidth * avgConfidence, 6);
             }
-        };
-        img.src = canvas.toDataURL();
     }
 });
 
