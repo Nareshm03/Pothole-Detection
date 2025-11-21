@@ -155,6 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             currentDetections = data.detections;
             
+            // Update metrics HUD
+            const avgConf = data.detections.length > 0 
+                ? (data.detections.reduce((sum, d) => sum + d.confidence, 0) / data.detections.length * 100).toFixed(1)
+                : 0;
+            document.getElementById('detectionsCount').textContent = data.detections.length;
+            document.getElementById('avgConfValue').textContent = avgConf;
+            
             // Save to localStorage for analytics
             const history = JSON.parse(localStorage.getItem('detectionHistory')) || [];
             history.push({
@@ -264,13 +271,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Draw detection boxes with enhanced visualization
     function drawDetectionBoxes(results) {
         const canvas = resultCanvas;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        
+        // Restore original image first
+        if (canvas.originalImageData) {
+            ctx.putImageData(canvas.originalImageData, 0, 0);
+        }
         
         const scaleX = canvas.width / canvas.dataset.originalWidth;
         const scaleY = canvas.height / canvas.dataset.originalHeight;
         
-        // Don't redraw image, just draw boxes on top
-        // (image is already on canvas from displayImage)
+        // Enable high quality rendering
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         
         // Calculate average confidence
         let totalConfidence = 0;
@@ -530,9 +543,11 @@ function addHeatmapControls(stats) {
 
 function resetToOriginal() {
     const canvas = document.getElementById('resultCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false });
     
     if (canvas.originalImageData) {
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         ctx.putImageData(canvas.originalImageData, 0, 0);
         drawDetectionBoxes(currentDetections);
     }

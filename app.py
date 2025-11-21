@@ -10,6 +10,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max
 CORS(app, resources={r"/*": {
     "origins": ["*"],
     "methods": ["GET", "POST", "OPTIONS"],
@@ -69,9 +70,17 @@ def detect():
     global model_manager, model
     
     try:
-        data = request.get_json()
-        if not data or 'image' not in data:
+        logger.info(f"Received detect request - Content-Type: {request.content_type}, Content-Length: {request.content_length}")
+        data = request.get_json(force=True, silent=True)
+        if data is None:
+            logger.error(f"Failed to parse JSON. Raw data length: {len(request.data)}")
+            return jsonify({'error': 'Invalid JSON data'}), 400
+        if 'image' not in data:
+            logger.error(f"No 'image' field. Keys present: {list(data.keys())}")
             return jsonify({'error': 'No image data provided'}), 400
+        
+        image_data_len = len(data.get('image', ''))
+        logger.info(f"Image data length: {image_data_len} bytes")
         
         # Initialize model if needed
         if model_manager is None:
@@ -88,20 +97,31 @@ def detect():
         import base64
         import cv2
         import numpy as np
+        from PIL import Image
+        import io
         
         image_data = data['image'].split(',')[1] if ',' in data['image'] else data['image']
         image_bytes = base64.b64decode(image_data)
-        nparr = np.frombuffer(image_bytes, np.uint8)
-        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        
+        # Use PIL for better quality preservation
+        pil_img = Image.open(io.BytesIO(image_bytes))
+        img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
         
         if img is None:
             return jsonify({'error': 'Invalid image data'}), 400
         
-        # Run detection
+        # Run detection with optimal parameters
         model = model_manager.get_model()
         logger.info(f"Running detection on image shape: {img.shape}")
-        results = model(img, conf=0.1, iou=0.45, verbose=False)
-        logger.info(f"Detection complete, results: {len(results) if results else 0}")
+        
+        # Calculate optimal image size (multiple of 32 for YOLO)
+        h, w = img.shape[:2]
+        max_dim = max(h, w)
+        imgsz = ((max_dim + 31) // 32) * 32  # Round up to nearest multiple of 32
+        imgsz = min(imgsz, 1280)  # Cap at 1280 for performance
+        
+        results = model(img, conf=0.1, iou=0.45, imgsz=imgsz, verbose=False)
+        logger.info(f"Detection complete with imgsz={imgsz}, results: {len(results) if results else 0}")
         
         # Format detections (OBB model)
         detections = []
@@ -112,7 +132,7 @@ def detect():
                     for i in range(len(obb)):
                         box = obb.xyxy[i].cpu().numpy()
                         conf = float(obb.conf[i].cpu().numpy())
-                        x, y, x2, y2 = box
+                        x, y, x2, y2 = map(float, box)
                         w, h = x2 - x, y2 - y
                         
                         severity = 'high' if conf > 0.7 else 'medium' if conf > 0.5 else 'low'
@@ -132,7 +152,7 @@ def detect():
         })
         
     except Exception as e:
-        logger.error(f"Detection error: {e}")
+        logger.error(f"Detection error: {e}", exc_info=True)
         return jsonify({'error': str(e)}), 500
 
 @app.route('/detection.html')

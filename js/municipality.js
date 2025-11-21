@@ -168,20 +168,97 @@ function updateSummaryStats() {
     }
 }
 
-// Initialize map (placeholder for demo)
+// Initialize map
 function initMap() {
-    // This would be replaced with actual map initialization code
-    console.log('Map initialized');
+    const canvas = document.getElementById('mapCanvas');
+    if (!canvas) return;
     
-    // For demo purposes, we'll just show a placeholder
-    const mapContainer = document.getElementById('potholeMap');
-    if (mapContainer) {
-        // Get reports for map markers
-        const reports = JSON.parse(localStorage.getItem('potholeReports')) || [];
-        
-        if (reports.length > 0) {
-            // In a real implementation, we would initialize a map and add markers
-            console.log(`Would display ${reports.length} markers on the map`);
-        }
+    const ctx = canvas.getContext('2d');
+    const reports = JSON.parse(localStorage.getItem('potholeReports')) || [];
+    
+    const container = canvas.parentElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    
+    ctx.fillStyle = '#f5f1e8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.strokeStyle = '#d4c5a9';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < canvas.width; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
     }
+    for (let i = 0; i < canvas.height; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+    }
+    
+    if (reports.length === 0) {
+        ctx.fillStyle = '#666';
+        ctx.font = '16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('No pothole reports to display', canvas.width / 2, canvas.height / 2);
+        return;
+    }
+    
+    const lats = reports.map(r => r.location?.latitude || 40.7128);
+    const lngs = reports.map(r => r.location?.longitude || -74.0060);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+    const minLng = Math.min(...lngs);
+    const maxLng = Math.max(...lngs);
+    
+    reports.forEach((report, idx) => {
+        const lat = report.location?.latitude || 40.7128;
+        const lng = report.location?.longitude || -74.0060;
+        
+        const x = ((lng - minLng) / (maxLng - minLng || 1)) * (canvas.width - 60) + 30;
+        const y = ((maxLat - lat) / (maxLat - minLat || 1)) * (canvas.height - 60) + 30;
+        
+        const colors = { 'pending': '#e74c3c', 'in-progress': '#f39c12', 'completed': '#27ae60' };
+        const color = colors[report.status] || '#3498db';
+        
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(`#${idx + 1}`, x, y - 12);
+    });
+    
+    const legendX = 10;
+    const legendY = canvas.height - 60;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fillRect(legendX, legendY, 150, 50);
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(legendX, legendY, 150, 50);
+    
+    const legendItems = [
+        { color: '#e74c3c', label: 'Pending' },
+        { color: '#f39c12', label: 'In Progress' },
+        { color: '#27ae60', label: 'Completed' }
+    ];
+    
+    legendItems.forEach((item, i) => {
+        ctx.fillStyle = item.color;
+        ctx.beginPath();
+        ctx.arc(legendX + 15, legendY + 15 + i * 15, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#333';
+        ctx.font = '11px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText(item.label, legendX + 25, legendY + 19 + i * 15);
+    });
 }
